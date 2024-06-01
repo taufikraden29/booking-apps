@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import {Gs} from '../../assets/styles/GlobalStyle';
-import {colors} from '../../assets/styles/Colors';
+import {Gs} from '../../../assets/styles/GlobalStyle';
+import {colors} from '../../../assets/styles/Colors';
 
 interface InputTextProps {
   icon?: any;

@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -11,10 +12,36 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {colors} from '../../../assets/styles/Colors';
 import {Gs} from '../../../assets/styles/GlobalStyle';
-import InputText from '../../component';
+import InputText from '../../component/InputText';
+import NewshortyItem from '../../component/NewshortyItem';
 
 const Home = () => {
   const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('Details');
+  };
+
+  const newshortyData = [
+    {
+      title: 'Tempat Nyaman',
+      address: 'Bandung',
+      price: '$212/days',
+      image: require('../../../assets/images/item_2_a.png'),
+    },
+    {
+      title: 'Rumah Nenek',
+      address: 'Jakarta',
+      price: '$212/days',
+      image: require('../../../assets/images/item_2_b.png'),
+    },
+    {
+      title: 'Ningrum',
+      address: 'Tangerang',
+      price: '$212/days',
+      image: require('../../../assets/images/item_2_c.png'),
+    },
+  ];
 
   const renderHeader = () => {
     return (
@@ -25,8 +52,8 @@ const Home = () => {
             style={styles.profileContainer}
           />
           <View>
-            <Text style={Gs.textBlack}>Hi, Raden</Text>
-            <Text style={(Gs.font700, Gs.textBlack)}>@dbraden</Text>
+            <Text style={Gs.textBlack}>Hi, Cumi</Text>
+            <Text style={(Gs.font700, Gs.textBlack)}>@cumitralalala</Text>
           </View>
         </View>
         <View style={Gs.flexRow}>
@@ -73,27 +100,54 @@ const Home = () => {
             />
           </View>
         </View>
-        <View>
+        <View style={styles.popularContent}>
           <View>
-            <Text>IndoWork</Text>
-            <Text>Jl Entis Sutisna Bandung</Text>
+            <Text style={[Gs.h2, Gs.textBlack]}>IndoWork</Text>
+            <Text style={[Gs.textGrey]}>Jl Entis Sutisna Bandung</Text>
           </View>
-          <View>
-            <Text>Harga</Text>
+          <View style={styles.popularPriceContainer}>
+            <Text style={styles.popularPriceLabel}>$ 250,00</Text>
           </View>
         </View>
       </View>
     );
   };
 
+  const renderNewsworthy = () => {
+    return (
+      <View style={styles.sectionContainer}>
+        <Text style={[styles.sectionTitle, Gs.h1]}>New Shorty</Text>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={newshortyData}
+          keyExtractor={item => item.title}
+          renderItem={({item}) => (
+            <NewshortyItem
+              title={item.title}
+              address={item.address}
+              price={item.price}
+              image={item.image}
+              onPress={() => {
+                handlePress;
+              }}
+            />
+          )}></FlatList>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      {renderHeader()}
-      {renderSearch()}
-      <ScrollView>
-        {renderPopularSection()}
-        {/* {renderNewsworthy()} */}
-      </ScrollView>
+      <View style={styles.contentContainer}>
+        {renderHeader()}
+        {renderSearch()}
+        <ScrollView style={styles.scrollContainer}>
+          {renderPopularSection()}
+          {renderNewsworthy()}
+        </ScrollView>
+      </View>
+
       {/* <BottomNav /> */}
     </View>
   );
@@ -110,6 +164,13 @@ const styles = StyleSheet.create({
     ...Gs.justifyBetween,
     padding: 24,
   },
+  contentContainer: {
+    flex: 1,
+    backgroundColor: colors.white,
+    borderBottomRightRadius: 32,
+    borderBottomLeftRadius: 32,
+  },
+
   profileContainer: {
     width: 50,
     height: 50,
@@ -139,6 +200,26 @@ const styles = StyleSheet.create({
   sectionTitle: {
     ...Gs.textBlack,
     marginBottom: 16,
+  },
+  popularContent: {
+    ...Gs.flexRow,
+    ...Gs.justifyBetween,
+  },
+  popularPriceContainer: {
+    ...Gs.justifyCenter,
+    ...Gs.itemsCenter,
+    ...Gs.cornerXS,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    backgroundColor: colors.secondary,
+  },
+  popularPriceLabel: {
+    ...Gs.font600,
+    ...Gs.textPrimary,
+  },
+  scrollContainer: {
+    height: '100%',
   },
 });
 
