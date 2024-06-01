@@ -14,6 +14,7 @@ import {colors} from '../../../assets/styles/Colors';
 import {Gs} from '../../../assets/styles/GlobalStyle';
 import InputText from '../../component/InputText';
 import NewshortyItem from '../../component/NewshortyItem';
+import BottomNav from '../../component/BottomNav';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -147,8 +148,7 @@ const Home = () => {
           {renderNewsworthy()}
         </ScrollView>
       </View>
-
-      {/* <BottomNav /> */}
+      <BottomNav />
     </View>
   );
 };

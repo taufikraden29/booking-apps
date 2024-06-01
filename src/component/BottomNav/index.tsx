@@ -1,12 +1,57 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import React from 'react';
+import {Gs} from '../../../assets/styles/GlobalStyle';
+import {colors} from '../../../assets/styles/Colors';
 
-const index = () => {
+function BottomNav(): JSX.Element {
   return (
-    <View>
-      <Text>index</Text>
+    <View style={styles.container}>
+      <View style={styles.tabContainer}>
+        <TouchableOpacity style={styles.activeTab}>
+          <Image source={require('../../../assets/icons/discover.png')} />
+          <Text style={styles.tabLabel}>Discover</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tab}>
+          <Image source={require('../../../assets/icons/messages.png')} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tab}>
+          <Image source={require('../../../assets/icons/payment.png')} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tab}>
+          <Image source={require('../../../assets/icons/settings.png')} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
-};
+}
 
-export default index;
+const styles = StyleSheet.create({
+  container: {
+    height: 100,
+    paddingVertical: 30,
+    paddingHorizontal: 54,
+  },
+  tabContainer: {
+    ...Gs.flexRow,
+    ...Gs.justifyBetween,
+  },
+  activeTab: {
+    ...Gs.flexRow,
+    ...Gs.itemsCenter,
+    ...Gs.cornerXS,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    backgroundColor: colors.secondary,
+  },
+  tab: {
+    padding: 8,
+  },
+  tabLabel: {
+    ...Gs.font600,
+    ...Gs.textPrimary,
+    color: colors.primary,
+    marginLeft: 8,
+  },
+});
+
+export default BottomNav;
