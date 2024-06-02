@@ -16,7 +16,7 @@ import InputText from '../../component/InputText';
 import NewshortyItem from '../../component/NewshortyItem';
 import BottomNav from '../../component/BottomNav';
 
-const Home = () => {
+function Home(): JSX.Element {
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -129,9 +129,7 @@ const Home = () => {
               address={item.address}
               price={item.price}
               image={item.image}
-              onPress={() => {
-                handlePress;
-              }}
+              onPress={handlePress}
             />
           )}></FlatList>
       </View>
@@ -151,7 +149,7 @@ const Home = () => {
       <BottomNav />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

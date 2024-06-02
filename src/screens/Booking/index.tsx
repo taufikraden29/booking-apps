@@ -4,7 +4,7 @@ import React from 'react';
 const Booking = () => {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>Booking</Text>
     </View>
   );
 };
