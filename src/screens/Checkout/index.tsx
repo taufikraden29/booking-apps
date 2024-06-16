@@ -1,11 +1,21 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import Header from '../../component/Header';
 import CardDetail from '../../component/CardDetail';
 import {Gs} from '../../../assets/styles/GlobalStyle';
 import {colors} from '../../../assets/styles/Colors';
+import {useNavigation} from '@react-navigation/native';
 
 function Checkout(): JSX.Element {
+  const navigation = useNavigation();
+
   const checkoutData = [
     {
       label: 'Price Per Day',
@@ -84,22 +94,71 @@ function Checkout(): JSX.Element {
     );
   };
 
+  const renderPaymentMethod = () => {
+    return (
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle]}>Payment</Text>
+        <View style={styles.paymentContainer}>
+          <TouchableOpacity style={styles.paymentButton}>
+            <Image source={require('../../../assets/icons/wallet.png')} />
+            <Text style={[Gs.h5, Gs.textBlack]}>My Wallet</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.paymentButton}>
+            <Image source={require('../../../assets/icons/mastercard.png')} />
+            <Text></Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+  const renderPayNow = () => {
+    return (
+      <View style={styles.section}>
+        <TouchableOpacity
+          style={styles.proceedButton}
+          onPress={() => navigation.navigate('Success')}>
+          <Text style={[Gs.textWhite, Gs.h4]}>Pay Now</Text>
+          <Image
+            source={require('../../../assets/icons/payment.png')}
+            style={styles.icon}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Header title="Checkout" subtitle="Ready To Start Working" />
-      <View>
+      <View style={styles.content}>
         <ScrollView>
           {renderCheckoutDetail()}
           {renderCheckoutData()}
-          {/* {renderPaymentMethod()} */}
+          {renderPaymentMethod()}
         </ScrollView>
+        {renderPayNow()}
       </View>
-      {/* {renderPayNoq()} */}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  icon: {
+    marginLeft: 14,
+  },
+  content: {
+    flex: 1,
+    ...Gs.justifyBetween,
+  },
+  proceedButton: {
+    ...Gs.flexRow,
+    ...Gs.itemsCenter,
+    ...Gs.justifyCenter,
+    ...Gs.cornerMD,
+    backgroundColor: colors.primary,
+    padding: 14,
+  },
   checkoutItem: {
     ...Gs.justifyBetween,
     ...Gs.flexRow,
@@ -117,6 +176,21 @@ const styles = StyleSheet.create({
     ...Gs.h3,
     ...Gs.textBlack,
     marginBottom: 12,
+  },
+  paymentContainer: {
+    ...Gs.flexRow,
+    marginHorizontal: -10,
+    marginBottom: 30,
+  },
+  paymentButton: {
+    ...Gs.justifyCenter,
+    ...Gs.itemsCenter,
+    ...Gs.cornerLG,
+    paddingVertical: 24,
+    paddingHorizontal: 52,
+    borderColor: colors.greyContainer,
+    borderWidth: 1,
+    marginHorizontal: 14,
   },
 });
 
